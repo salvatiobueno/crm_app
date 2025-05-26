@@ -1,0 +1,6 @@
+| Tipo de prueba          | Número de tarjeta     | Fecha exp.        | CVC       | Código postal |
+| ----------------------- | --------------------- | ----------------- | --------- | ------------- |
+| Pago exitoso            | `4242 4242 4242 4242` | Cualquiera futuro | 3 dígitos | 5 dígitos     |
+| Tarjeta rechazada       | `4000 0000 0000 0002` | Cualquiera        | 123       | 10000         |
+| Fondos insuficientes    | `4000 0000 0000 9995` | Cualquiera        | 123       | 10000         |
+| Autenticación 3D Secure | `4000 0027 6000 3184` | Cualquiera        | 123       | 10000         |
