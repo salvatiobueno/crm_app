@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $error = 'Usuario o clave incorrectos';
     }
-}
+} 
 ?> 
 <!DOCTYPE html>
 <html lang="es">
