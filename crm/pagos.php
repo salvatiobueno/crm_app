@@ -3,7 +3,7 @@ require 'includes/header.php';
 require 'includes/db.php';
 require 'includes/functions.php';
 
-$socios = obtenerPagos($pdo);
+$pago = obtenerPagos($pdo);
 
 ?>
 
