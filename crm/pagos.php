@@ -1,8 +1,9 @@
 <?php
 require 'includes/header.php';
 require 'includes/db.php';
+require 'includes/functions.php';
 
-$pagos = $pdo->query("SELECT pagos.*, socios.nombre, socios.estado FROM pagos JOIN socios ON pagos.socio_id = socios.id ORDER BY fecha_pago DESC")->fetchAll(PDO::FETCH_ASSOC);
+$socios = obtenerPagos($pdo);
 
 ?>
 
