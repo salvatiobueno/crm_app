@@ -1,6 +1,17 @@
 <?php
 require 'includes/db.php';
 
+/*
+ Mejores prácticas a futuro
+No muestres la clave en pantalla, envíala por correo (con PHPMailer, por ejemplo).
+
+Añade una URL temporal de reseteo con tokens.
+
+Registra cada intento de recuperación.
+
+Implementa reCAPTCHA para evitar abuso.
+*/
+
 $mensaje = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = $_POST['usuario'];
