@@ -1,6 +1,10 @@
 
-
 function obtenerSocios($pdo) {
-    $stmt = $pdo->query("SELECT * FROM socios ORDER BY nombre ASC");
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    try {
+        $stmt = $pdo->query("SELECT * FROM socios");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log("Error al obtener socios: " . $e->getMessage());
+        return [];
+    }
 }
