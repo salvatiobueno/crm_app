@@ -1,4 +1,4 @@
-
+<?php
 function obtenerSocios($pdo) {
     try {
         $stmt = $pdo->query("SELECT * FROM socios");
