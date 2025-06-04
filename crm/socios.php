@@ -1,8 +1,9 @@
 <?php
 require 'includes/header.php';
 require 'includes/db.php';
+require 'includes/functions.php';
 
-$socios = $pdo->query("SELECT * FROM socios")->fetchAll(PDO::FETCH_ASSOC);
+$socios = obtenerSocios($pdo);
 
 ?>
 
