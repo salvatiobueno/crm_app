@@ -1,14 +1,11 @@
 <?php
-session_start();
-if (!isset($_SESSION['usuario'])) {
-    header('Location: index.php');
-    exit;
-}
+require 'includes/header.php';
 require 'includes/db.php';
+
 $socios = $pdo->query("SELECT * FROM socios")->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
-<?php include 'includes/header.php'; ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
