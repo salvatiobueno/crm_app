@@ -43,6 +43,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="password" class="form-control" name="clave" required>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Entrar</button>
+
+                    <div class="text-center mt-2">
+                        <a href="recuperar.php">¿Olvidaste tu contraseña?</a>
+                    </div>
+
                 </form>
             </div>
         </div>
