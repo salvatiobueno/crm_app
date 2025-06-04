@@ -8,6 +8,7 @@ require 'includes/db.php';
 $pagos = $pdo->query("SELECT pagos.*, socios.nombre, socios.estado FROM pagos JOIN socios ON pagos.socio_id = socios.id ORDER BY fecha_pago DESC")->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
+<?php include 'includes/header.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

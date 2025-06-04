@@ -6,7 +6,9 @@ if (!isset($_SESSION['usuario'])) {
 }
 require 'includes/db.php';
 $socios = $pdo->query("SELECT * FROM socios")->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
+<?php include 'includes/header.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
