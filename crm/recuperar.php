@@ -15,25 +15,26 @@ Implementa reCAPTCHA para evitar abuso.
 $mensaje = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = $_POST['usuario'];
+    $nueva_clave = $_POST['nueva_clave'];
+    $repetir_clave = $_POST['repetir_clave'];
 
-    // Verificar si el usuario existe
-    $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE usuario = :usuario");
-    $stmt->execute(['usuario' => $usuario]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($user) {
-        // Generar una clave temporal (por ejemplo: 6 caracteres aleatorios)
-        $nueva_clave = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'), 0, 8);
-        $clave_hash = password_hash($nueva_clave, PASSWORD_DEFAULT);
-
-        // Guardar nueva clave en la base de datos
-        $update = $pdo->prepare("UPDATE usuarios SET clave = :clave WHERE id = :id");
-        $update->execute(['clave' => $clave_hash, 'id' => $user['id']]);
-
-        // Mostrar la nueva clave (en producción deberías enviarla por email)
-        $mensaje = "Tu nueva contraseña temporal es: <strong>$nueva_clave</strong>";
+    if ($nueva_clave !== $repetir_clave) {
+        $mensaje = 'Las contraseñas no coinciden.';
     } else {
-        $mensaje = "No se encontró un usuario con ese nombre.";
+        // Verificar si el usuario existe
+        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE usuario = :usuario");
+        $stmt->execute(['usuario' => $usuario]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            $clave_hash = password_hash($nueva_clave, PASSWORD_DEFAULT);
+            $update = $pdo->prepare("UPDATE usuarios SET clave = :clave WHERE id = :id");
+            $update->execute(['clave' => $clave_hash, 'id' => $user['id']]);
+
+            $mensaje = 'Contraseña actualizada correctamente. <a href="index.php">Iniciar sesión</a>';
+        } else {
+            $mensaje = 'No se encontró un usuario con ese nombre.';
+        }
     }
 }
 ?>
@@ -49,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="card p-4 shadow">
-                <h4 class="text-center">Recuperar contraseña</h4>
+                <h4 class="text-center">Restablecer contraseña</h4>
                 <?php if ($mensaje): ?>
                     <div class="alert alert-info text-center"><?= $mensaje ?></div>
                 <?php endif; ?>
@@ -58,7 +59,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label for="usuario" class="form-label">Usuario</label>
                         <input type="text" class="form-control" name="usuario" required>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Generar nueva contraseña</button>
+                    <div class="mb-3">
+                        <label for="nueva_clave" class="form-label">Nueva contraseña</label>
+                        <input type="password" class="form-control" name="nueva_clave" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="repetir_clave" class="form-label">Repetir contraseña</label>
+                        <input type="password" class="form-control" name="repetir_clave" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Actualizar contraseña</button>
                     <a href="index.php" class="btn btn-link w-100 mt-2">Volver al login</a>
                 </form>
             </div>
