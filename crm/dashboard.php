@@ -20,7 +20,8 @@ if (!isset($_SESSION['usuario'])) {
             <li class="nav-item"><a class="nav-link" href="socios.php">Socios</a></li>
             <li class="nav-item"><a class="nav-link" href="pagos.php">Pagos</a></li>
         </ul>
-        <a href="index.php" class="btn btn-outline-light btn-sm">Cerrar sesión</a>
+        <!--a href="index.php" class="btn btn-outline-light btn-sm">Cerrar sesión</a-->
+        <a href="logout.php" class="btn btn-outline-light btn-sm">Cerrar sesión</a>
     </div>
 </nav>
 <div class="container py-4">
