@@ -21,6 +21,7 @@ if (!isset($_SESSION['usuario'])) {
         <ul class="navbar-nav me-auto">
             <li class="nav-item"><a class="nav-link" href="socios.php">Socios</a></li>
             <li class="nav-item"><a class="nav-link" href="pagos.php">Pagos</a></li>
+			<li class="nav-item"><a class="nav-link" href="videos.php">Videos</a></li>
         </ul>
         <a href="logout.php" class="btn btn-outline-light btn-sm">Cerrar sesión</a>
     </div>
