@@ -13,6 +13,7 @@ $socios = obtenerSocios($pdo);
   <title>Galería de Videos</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+  /* ... [Mismos estilos anteriores] ... */
   body {
     background-color: #000;
     color: #fff;
@@ -68,7 +69,6 @@ $socios = obtenerSocios($pdo);
     font-weight: bold;
   }
 
-  /* Modal */
   .modal {
     display: none;
     position: fixed;
@@ -117,8 +117,7 @@ $socios = obtenerSocios($pdo);
   .video-info p {
     margin: 5px 0;
   }
-</style>
-
+  </style>
 
   <script>
     document.addEventListener('contextmenu', event => event.preventDefault());
@@ -175,33 +174,29 @@ $socios = obtenerSocios($pdo);
   <h1>Galería de Videos</h1>
 
   <div class="gallery">
-    <!-- Tarjeta 1 -->
-    <div class="video-card"
-         data-src="video.mp4"
-         data-title="Video 1"
-         data-description="Este es el primer video de prueba."
-         data-views="123">
-      <div class="video-thumb">
-        <video muted>
-          <source src="video.mp4" type="video/mp4">
-        </video>
-      </div>
-      <div class="video-title">Video 1</div>
-    </div>
+    <?php
+      $stmt = $pdo->query("SELECT titulo, descripcion, ruta FROM videos ORDER BY fecha_subida DESC");
+      while ($video = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          $titulo = htmlspecialchars($video['titulo']);
+          $descripcion = htmlspecialchars($video['descripcion']);
+          $ruta = htmlspecialchars($video['ruta']);
+          $vistas = rand(50, 500); // puedes reemplazar esto con un campo real si lo tienes
 
-    <!-- Tarjeta 2 -->
-    <div class="video-card"
-         data-src="video.mp4"
-         data-title="Video 2"
-         data-description="Segundo video con más acción."
-         data-views="456">
-      <div class="video-thumb">
-        <video muted>
-          <source src="video.mp4" type="video/mp4">
-        </video>
-      </div>
-      <div class="video-title">Video 2</div>
-    </div>
+          echo '
+          <div class="video-card"
+              data-src="' . $ruta . '"
+              data-title="' . $titulo . '"
+              data-description="' . $descripcion . '"
+              data-views="' . $vistas . '">
+              <div class="video-thumb">
+                  <video muted>
+                      <source src="' . $ruta . '" type="video/mp4">
+                  </video>
+              </div>
+              <div class="video-title">' . $titulo . '</div>
+          </div>';
+      }
+    ?>
   </div>
 
   <!-- Modal -->

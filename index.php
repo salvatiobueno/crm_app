@@ -2,10 +2,14 @@
 session_start();
 require 'includes/db.php';
 require 'includes/auth.php';
+$_SESSION['ultimo_acceso'] = time();
 
 if (isset($_SESSION['usuario'])) {
     header('Location: dashboard.php');
     exit;
+}
+if (isset($_GET['mensaje']) && $_GET['mensaje'] == 'sesion_expirada') {
+    echo "<p>Tu sesión ha expirado por inactividad.</p>";
 }
 
 $error = '';
